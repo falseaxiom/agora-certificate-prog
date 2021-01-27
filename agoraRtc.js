@@ -2,7 +2,9 @@ let handlefail = function(err){
     console.log(err);
 }
 
+
 function addVideoStream(streamId){
+    console.log();
     let remoteContainer = document.getElementById("remoteStream");
     let streamDiv = document.createElement("div");
     streamDiv.id = streamId;
@@ -12,8 +14,8 @@ function addVideoStream(streamId){
 }
 
 document.getElementById("join").onclick = function () {
-    let channelName = document.getElementsById("channelName").value;
-    let username = document.getElementById("username").value;
+    let channelName = document.getElementById("channelName").value;
+    let Username = document.getElementById("username").value;
     let appId = "dd95732445fa44c69531d808e34903b5";
 
     let client = AgoraRTC.createClient({
@@ -27,7 +29,7 @@ document.getElementById("join").onclick = function () {
     client.join(
         null,
         channelName,
-        username,
+        Username,
         () =>{
             var localStream = AgoraRTC.createStream({
                 video: true,
@@ -44,7 +46,7 @@ document.getElementById("join").onclick = function () {
 
     client.on("stream-added", function (evt){
         console.log("Added Stream");
-        client.subscribe(evt.stream,handlefail)
+        client.subscribe(evt.stream,handlefail);
     })
 
     client.on("stream-subscribed", function(evt){
